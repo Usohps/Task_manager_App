@@ -4,6 +4,7 @@ import CreateTask from "./pages/CreateTask";
 import Home from "./pages/Home";
 import Categories from "./components/Categories";
 import { FiSun, FiMoon } from "react-icons/fi";
+import useCreateDate from "./lib/date/useCreateDate";
 function App() {
   //Line 8-10 is a script that gets the created task from local storage to be displayed to a user if no task it is meant to return an empty array
   const [task, setTask] = useState(
@@ -24,9 +25,10 @@ function App() {
     setOpenModal(false);
   };
   const addTask = (text, uStatus) => {
+    const date = useCreateDate()
     setTask((prev) => {
       return [
-        { title: text, status: uStatus, id: Math.random().toString() },
+        { title: text, status: uStatus, date:date, id: Math.random().toString() },
         ...prev,
       ];
     });
@@ -75,7 +77,7 @@ function App() {
   };
   return (
     <>
-      <div className="w-full h-screen  text-black dark:text-gray-500  dark:bg-slate-800 ">
+      <div className="w-full text-black dark:text-gray-500  dark:bg-slate-800 ">
         <div className="w-full flex flex-col p-6 items-end">
           <button onClick={handleTheme}>
             {theme === "dark" ? (

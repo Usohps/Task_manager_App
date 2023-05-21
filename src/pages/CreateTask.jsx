@@ -62,12 +62,12 @@ function CreateTask({ categories, addTask }) {
                 );
               })}
             </div>
-            <div className="w-full text-center p-3">
+            <div className="w-full text-center p-3 font-bold">
               <button onClick={handleSubmit} className=" text-[#44A0A0] bg-white px-4 shadow-xl border-[#44A0A0] rounded-md">
                 Submit Task
               </button>
             </div>
-            {error ? <span>{error}</span> : ""}
+            <div className="w-full border text-red-700 bg-white dark:bg-black text-center py-2 font-bold">{error ? <span>{error}</span> : ""}</div>
           </form>
         </div>
       </div>
