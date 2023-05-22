@@ -2,8 +2,7 @@ import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-function CreateTask({ categories, addTask }) {
-  // const getStatus = JSON.parse(localStorage.getItem("status"))
+function CreateTask({ categories, addTask, onClose }) {
   const navigate = useNavigate();
   const [task, setTask] = useState("");
   const [error, setError] = useState("");
@@ -25,7 +24,7 @@ function CreateTask({ categories, addTask }) {
     >
       <div className="w-full flex flex-col items-end p-5">
         <button>
-          <AiOutlineClose size={24} />
+          <AiOutlineClose size={24} onClick={onClose} />
         </button>
       </div>
       <div className="flex flex-col justify-center items-center h-screen">
@@ -52,9 +51,12 @@ function CreateTask({ categories, addTask }) {
             <div className="flex flex-row items-center gap-3 text-center font-bold justify-center flex-wrap p-4 w-full">
               {categories?.map((category) => {
                 return (
-                  <button key={category.id}
-                    // value={category?.status}
-                    onClick={(e) => {e.preventDefault(); setStatus(category?.status)}}
+                  <button
+                    key={category.id}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setStatus(category?.status);
+                    }}
                     className="w-[120px] rounded-lg shadow-md p-1 bg-[#e26d1e] text-white "
                   >
                     <p>{category.status}</p>
@@ -63,11 +65,16 @@ function CreateTask({ categories, addTask }) {
               })}
             </div>
             <div className="w-full text-center p-3 font-bold">
-              <button onClick={handleSubmit} className=" text-[#44A0A0] bg-white px-4 shadow-xl border-[#44A0A0] rounded-md">
+              <button
+                onClick={handleSubmit}
+                className=" text-[#44A0A0] bg-white px-4 shadow-xl border-[#44A0A0] rounded-md"
+              >
                 Submit Task
               </button>
             </div>
-            <div className="w-full border text-red-700 bg-white dark:bg-black text-center py-2 font-bold">{error ? <span>{error}</span> : ""}</div>
+            <div className="w-full border text-red-700 bg-white dark:bg-black text-center py-2 font-bold">
+              {error ? <span>{error}</span> : ""}
+            </div>
           </form>
         </div>
       </div>

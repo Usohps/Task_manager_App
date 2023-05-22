@@ -17,7 +17,7 @@ function Categories(props) {
     >
       <div className="w-full flex flex-col items-end p-5">
         <button>
-          <AiOutlineClose size={24} />
+          <AiOutlineClose size={24} onClick={props.onClose}/>
         </button>
       </div>
       <div className="flex flex-col justify-center items-center h-screen">

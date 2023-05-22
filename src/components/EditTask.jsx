@@ -1,18 +1,20 @@
 import React from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
-function EditTask({categories,editTask,modal,close}) {
-  if(!modal){
-    return null
-  }
+import { useState } from 'react';
+function EditTask({categories,editTask,onClose,selecetedTask}) {
+ 
+  const [newTask, setTask] = useState(selecetedTask);
+  const [status, setStatus] = useState(categories);
+  console.log({selecetedTask})
   return (
     <div
     className="w-full h-full fixed top-[0] backdrop-blur-md animation z-50 left-0 from-transparent to-[#253D62] dark:from-slate-400 dark:to-white" style={{
-      opacity:open?"0.5":"0"
+      opacity:open?"1":"0"
     }}
   >
     <div className="w-full flex flex-col items-end p-5">
-      <button onClick={close}>
-        <AiOutlineClose className='text-black' size={24}/>
+      <button onClick={onClose}>
+        <AiOutlineClose className='text-white' size={24} onClose={onClose}/>
       </button>
     </div>
     <div className="flex flex-col justify-center items-center h-screen">
@@ -20,12 +22,14 @@ function EditTask({categories,editTask,modal,close}) {
         <div className="text-center w-full p-2 font-bold">
           <h1>Edit Task</h1>
         </div>
-        <form className="" onSubmit={editTask}>
+        {/* <form className=""> */}
           <div className="px-2">
             <input
               type="text"
               autoFocus
               className="w-full p-2 bg-[white] rounded outline-none text-black"
+            value={selecetedTask.title}
+                onChange={(e) => setTask({...newTask,title:e.target.value})}
             />
           </div>
           <div className="flex flex-row items-center gap-3 text-center font-bold justify-center flex-wrap p-4 w-full">
@@ -41,11 +45,11 @@ function EditTask({categories,editTask,modal,close}) {
               })}
             </div>
           <div className="w-full text-center p-3">
-            <button className=" w-[150px] py-1 font-bold bg-[#38938A] dark:bg-[#44A0A0] text-white rounded-md">
+            <button onClick={()=>editTask(task,status)} className=" w-[150px] py-1 font-bold bg-[#38938A] dark:bg-[#44A0A0] text-white rounded-md">
               Edit Task
             </button>
           </div>
-        </form>
+        {/* </form> */}
       </div>
     </div>
   </div>
