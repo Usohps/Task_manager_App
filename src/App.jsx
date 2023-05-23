@@ -29,7 +29,7 @@ function App() {
           <button onClick={handleTheme}>
             {theme === "dark" ? (
               <div>
-                <FiMoon size={24} className="text-white" />
+                <FiMoon size={24} className="text-black dark:text-white" />
               </div>
             ) : (
               <div>

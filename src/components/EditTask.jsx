@@ -14,7 +14,7 @@ function EditTask({ categories, editTask, onClose, selecetedTask }) {
     >
       <div className="w-full flex flex-col items-end p-5">
         <button onClick={onClose}>
-          <AiOutlineClose className="text-white" size={24} onClose={onClose} />
+          <AiOutlineClose className="text-black dark:text-white" size={24} onClose={onClose} />
         </button>
       </div>
       <div className="flex flex-col justify-center items-center h-screen">
