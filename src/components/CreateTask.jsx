@@ -7,6 +7,7 @@ function CreateTask({ categories, addTask, onClose }) {
   const [task, setTask] = useState("");
   const [error, setError] = useState("");
   const [status, setStatus] = useState(null);
+  const [isClicked, setIsClicked] = useState(false);
   console.log(status);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,8 +28,8 @@ function CreateTask({ categories, addTask, onClose }) {
           <AiOutlineClose size={24} onClick={onClose} />
         </button>
       </div>
-      <div className="flex flex-col justify-center items-center h-screen">
-        <div className="w-[330px] bg-[#54BAB9] border-white rounded shadow-xl  ">
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="w-[250px] md:w-[400px] bg-[#54BAB9] border-white rounded shadow-xl  ">
           <div className="text-center w-full p-2 font-bold">
             <h1>Create Task</h1>
           </div>
@@ -56,8 +57,13 @@ function CreateTask({ categories, addTask, onClose }) {
                     onClick={(e) => {
                       e.preventDefault();
                       setStatus(category?.status);
+                      setIsClicked(!isClicked);
                     }}
-                    className="w-[120px] rounded-lg shadow-md p-1 bg-[#e26d1e] text-white "
+                    className={`${
+                      status === category.status
+                        ? "bg-green-950"
+                        : "bg-orange-500"
+                    } text-white border font-bold py-2 px-4  rounded`}
                   >
                     <p>{category.status}</p>
                   </button>
@@ -72,7 +78,7 @@ function CreateTask({ categories, addTask, onClose }) {
                 Submit Task
               </button>
             </div>
-            <div className="w-full border text-red-700 bg-white dark:bg-black text-center py-2 font-bold">
+            <div className="w-full border text-red-700 bg-white text-center py-2 font-bold">
               {error ? <span>{error}</span> : ""}
             </div>
           </form>

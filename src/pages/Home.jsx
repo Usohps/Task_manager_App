@@ -55,7 +55,11 @@ function Home({}) {
   const deleteTasks = (id) => {
     setTask(task.filter((item) => item.id !== id));
   };
-
+  // const deleteCompletedHandler =()=>{
+  //   if(task.status ==="completed"){
+  //     setTask(...task)
+  //   }
+  // }
   const addCategories = (text) => {
     setcategories((prev) => {
       setOpenCategories(false);
@@ -63,16 +67,17 @@ function Home({}) {
     });
   };
 
-  const editTask = (task, status) => {
-    console.log({ task, status });
-    const editedTaskList = task.map((_task) => {
-      // if this task has the same ID as the edited task
-      if (_task - id === task.id) {
-        return { title: task.title, status: status, ..._task };
-      }
-      return task;
-    });
-    setTask(editedTaskList);
+  const editTask = (newTask, status) => {
+    //I checked if there is a status present which returns true, then we set it to the value whcih the user choose to replace the status.
+    if (status) {
+      newTask.status = status;
+    }
+    //find the task by its index in the array of task the replace it with the new task inputed by the user
+    const newTaskIndex = task.findIndex((item) => item.id === newTask.id);
+    task.splice(newTaskIndex, 1, newTask);
+    //set the new task to replace the value which was saved @ localstorage, then set the modal to false to get the modal off the screen.
+    localStorage.setItem("task", JSON.stringify(task));
+    setOpenEditModal(false);
   };
 
   const aboutToEdit = (item) => {
@@ -80,40 +85,46 @@ function Home({}) {
     setSelectedTask(item);
     setOpenEditModal(true);
   };
+  //This set the task inputed by the user to become the value of the keys "task , categories" respectively
   useEffect(() => {
     localStorage.setItem("task", JSON.stringify(task));
     localStorage.setItem("category", JSON.stringify(categories));
   }, [task, categories]);
-  console.log({ categories, task });
+  // console.log({ categories, task });
 
   return (
-    <div className="py-6">
+    <div className="p-6">
       <div className="w-[148px] m-auto text-center font-semibold">
         <h1 className="text-[#E9C597] text-lg font-extrabold">
           PERSONAL TASK MANAGER
         </h1>
       </div>
-      <div className="w-full text-white text-center  ">
+      <div className="w-full text-white text-center max-w-screen-md mx-auto  ">
         <div className="flex flex-col md:flex-row  justify-center mt-12  gap-4">
-          <div className="w-[300px] bg-[#54BAB9] shadow-2xl dark:bg-[#354259] m-auto md:m-0 rounded-md">
+          <div className="w-full bg-[#54BAB9] shadow-2xl dark:bg-[#354259] m-auto md:m-0 rounded-md">
             <div className="flex justify-center py-4 gap-3 items-center">
               <div className="border w-full"></div>
               <p className="font-bold">Categories</p>
               <div className="border w-full"></div>
             </div>
-            <div className="w-full space-y-4 flex flex-col items-center justify-center pt-3">
-              {categories?.map((category) => {
-                return (
-                  <button
-                    value={categories.status}
-                    key={category.id}
-                    className="w-[120px] rounded-lg shadow-md p-1 bg-[#e26d1e] text-white "
-                  >
-                    <p>{category.status}</p>
-                  </button>
-                );
-              })}
-            </div>
+            {categories.length == 0 ? (
+              <div className="border py-24 font-bold">
+                <p >No catgories yet </p>
+              </div>
+            ) : (
+              <div>
+                {categories &&
+                  categories?.map((category) => (
+                    <button
+                      value={categories.status}
+                      key={categories.id}
+                      className="w-[120px] rounded-lg shadow-md p-1 bg-[#e26d1e] text-white "
+                    >
+                      <p>{category.status}</p>
+                    </button>
+                  ))}
+              </div>
+            )}
             <div className="w-full py-6">
               <button
                 onClick={() => setOpenCategories(true)}
@@ -123,7 +134,7 @@ function Home({}) {
               </button>
             </div>
           </div>
-          <div className="w-full bg-[#54BAB9] dark:bg-[#354259] md:rounded-md hover:shadow-none shadow-2xl md:w-1/2">
+          <div className="w-full bg-[#54BAB9] dark:bg-[#354259] md:rounded-md hover:shadow-none shadow-2xl">
             <div className="md:hidden flex items-center justify-between p-4 ">
               <button
                 onClick={() => setOpenCreateModal(true)}
@@ -145,41 +156,47 @@ function Home({}) {
               </button>
               <button className="font-bold">Clear Completed</button>
             </div>
-            <div className="md:space-y-3  md:p-0 bg-[#54BAB9] dark:bg-[#354259]">
-              {task?.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <div className="w-full p-2 text-left font-bold ">
-                      {item.date}
-                    </div>
-                    <div
-                      key={item.id}
-                      className="w-full flex relative  justify-around pr-0  mt-6 md:mt-0 items-center py-6 md:pl-3 hover:shadow-inner shadow-md"
-                    >
-                      <button onClick={open}>
-                        <AiOutlineEdit
-                          size={24}
-                          onClick={() => aboutToEdit(item)}
-                        />
-                      </button>
-
-                      <button onClick={() => deleteTasks(item.id)}>
-                        <AiOutlineDelete size={24} />
-                      </button>
-                      <div>
-                        <p>{item.title}</p>
+            <div className="md:space-y-3 w-full md:p-0 bg-[#54BAB9] dark:bg-[#354259]"></div>
+            {task.length == 0 ? (
+              <div className="border py-24 font-bold">
+                <p>No Task Recorded Yet </p>
+              </div>
+            ) : (
+              <div>
+                {task &&
+                  task?.map((item, index) => (
+                    <div key={index}>
+                      <div className="w-full p-2 text-left font-bold ">
+                        {item.date}
                       </div>
-                      <button className="hidden md:block w-[100px] rounded-lg shadow-md p-1 bg-[#e26d1e] text-white">
-                        {item.status}
-                      </button>
-                      <button className=" w-[70px] absolute bottom-6 right-0 md:hidden transform rotate-[270deg] text-center text-xs shadow-md p-1 bg-[#e26d1e] text-white">
-                        {item.status}
-                      </button>
+                      <div
+                        key={item.id}
+                        className="w-full flex relative  justify-around pr-0  mt-6 md:mt-0 items-center py-6 md:pl-3 hover:shadow-inner shadow-md"
+                      >
+                        <button onClick={open}>
+                          <AiOutlineEdit
+                            size={24}
+                            onClick={() => aboutToEdit(item)}
+                          />
+                        </button>
+
+                        <button onClick={() => deleteTasks(item.id)}>
+                          <AiOutlineDelete size={24} />
+                        </button>
+                        <div>
+                          <p>{item.title}</p>
+                        </div>
+                        <button className="hidden md:block w-[100px] rounded-lg shadow-md p-1 bg-[#e26d1e] text-white">
+                          {item.status}
+                        </button>
+                        <button className=" w-[70px] absolute bottom-6 right-0 md:hidden transform rotate-[270deg] text-center text-xs shadow-md p-1 bg-[#e26d1e] text-white">
+                          {item.status}
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

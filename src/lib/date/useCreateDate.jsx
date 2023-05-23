@@ -1,3 +1,5 @@
+//this hook helps with the update on current date of recorede task I called this in the home page when setting to local storage and getting from local storage.
+
 const useCreateDate = ()=>{
     const dateObj = new Date();
     const month = dateObj.getMonth()

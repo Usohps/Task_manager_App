@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { FiSun, FiMoon } from "react-icons/fi";
 function App() { 
+  //the codes below before the return handles the light and dark mode of the application before this works we have to initialize a class in index.htm called dark 
   const [theme, setTheme] = useState(null);
   useEffect(() => {
     if (window.matchMedia("(prefers-color-schema:dark)").matches) {
@@ -23,7 +24,7 @@ function App() {
   };
   return (
     <>
-      <div className="w-full  text-black dark:text-gray-500  dark:bg-slate-800" >
+      <div className="w-full md:min-h-screen md:max-h-screen h-screen  text-black dark:text-gray-500  dark:bg-slate-800" >
         <div className="w-full flex flex-col p-6 items-end">
           <button onClick={handleTheme}>
             {theme === "dark" ? (

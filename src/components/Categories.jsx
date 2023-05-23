@@ -20,10 +20,10 @@ function Categories(props) {
           <AiOutlineClose size={24} onClick={props.onClose}/>
         </button>
       </div>
-      <div className="flex flex-col justify-center items-center h-screen">
-        <div className="w-[330px] bg-[#54BAB9] border-white rounded shadow-xl  ">
+      <div className=" w-full h-full flex flex-col justify-center items-center">
+        <div className="w-[250px] md:w-[400px] bg-[#54BAB9] border-white rounded shadow-xl  ">
           <div className="text-center w-full p-2 font-bold">
-            <h1>Create Task</h1>
+            <h1>Create Category</h1>
           </div>
           <form className="" onSubmit={handleSubmit}>
             <div className="px-2">
@@ -41,7 +41,6 @@ function Categories(props) {
                 Submit Caegory
               </button>
             </div>
-            {/* {error?<span>{error}</span>:""} */}
           </form>
         </div>
       </div>
