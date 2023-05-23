@@ -108,8 +108,8 @@ function Home({}) {
               <div className="border w-full"></div>
             </div>
             {categories.length == 0 ? (
-              <div className="border py-24 font-bold">
-                <p >No catgories yet </p>
+              <div className="py-24 font-bold p-2">
+                <p >No catgories yet, hence create a preffered status to have access to task  </p>
               </div>
             ) : (
               <div>
@@ -158,8 +158,8 @@ function Home({}) {
             </div>
             <div className="md:space-y-3 w-full md:p-0 bg-[#54BAB9] dark:bg-[#354259]"></div>
             {task.length == 0 ? (
-              <div className="border py-24 font-bold">
-                <p>No Task Recorded Yet </p>
+              <div className=" py-24 font-bold">
+                <p>No Task Recorded Yet. </p>
               </div>
             ) : (
               <div>

@@ -24,7 +24,7 @@ function App() {
   };
   return (
     <>
-      <div className="w-full md:min-h-screen md:max-h-screen h-screen  text-black dark:text-gray-500  dark:bg-slate-800" >
+      <div className="w-full md:min-h-screen md:max-h-screen h-full  text-black dark:text-gray-500  dark:bg-slate-800" >
         <div className="w-full flex flex-col p-6 items-end">
           <button onClick={handleTheme}>
             {theme === "dark" ? (

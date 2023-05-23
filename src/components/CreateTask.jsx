@@ -24,7 +24,7 @@ function CreateTask({ categories, addTask, onClose }) {
       className={`w-full h-full fixed top-[0] backdrop-blur-2xl  animation z-50 left-0 from-transparent to-[#253D62]`}
     >
       <div className="w-full flex flex-col items-end p-5">
-        <button>
+        <button className="text-white">
           <AiOutlineClose size={24} onClick={onClose} />
         </button>
       </div>
