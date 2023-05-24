@@ -112,7 +112,7 @@ function Home({}) {
                 <p >No catgories yet, hence create a preffered status to have access to task  </p>
               </div>
             ) : (
-              <div>
+              <div className="w-full flex flex-col justify-center items-center space-y-4">
                 {categories &&
                   categories?.map((category) => (
                     <button
